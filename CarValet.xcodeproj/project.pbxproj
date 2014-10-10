@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F64755719E788F30061F87F /* HybridCar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F64755619E788F30061F87F /* HybridCar.m */; };
 		4FC35C9519D3BCF00011E664 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FC35C9419D3BCF00011E664 /* Foundation.framework */; };
 		4FC35C9719D3BCF00011E664 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FC35C9619D3BCF00011E664 /* CoreGraphics.framework */; };
 		4FC35C9919D3BCF00011E664 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FC35C9819D3BCF00011E664 /* UIKit.framework */; };
@@ -22,6 +23,7 @@
 		4FC35CB919D3BCF00011E664 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FC35C9819D3BCF00011E664 /* UIKit.framework */; };
 		4FC35CC119D3BCF10011E664 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4FC35CBF19D3BCF10011E664 /* InfoPlist.strings */; };
 		4FC35CC319D3BCF10011E664 /* CarValetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC35CC219D3BCF10011E664 /* CarValetTests.m */; };
+		4FC35CCE19D3BD720011E664 /* Car.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC35CCD19D3BD720011E664 /* Car.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4F64755519E788F30061F87F /* HybridCar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HybridCar.h; sourceTree = "<group>"; };
+		4F64755619E788F30061F87F /* HybridCar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HybridCar.m; sourceTree = "<group>"; };
 		4FC35C9119D3BCF00011E664 /* CarValet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarValet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FC35C9419D3BCF00011E664 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4FC35C9619D3BCF00011E664 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -55,6 +59,8 @@
 		4FC35CBE19D3BCF00011E664 /* CarValetTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CarValetTests-Info.plist"; sourceTree = "<group>"; };
 		4FC35CC019D3BCF10011E664 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4FC35CC219D3BCF10011E664 /* CarValetTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarValetTests.m; sourceTree = "<group>"; };
+		4FC35CCC19D3BD720011E664 /* Car.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Car.h; sourceTree = "<group>"; };
+		4FC35CCD19D3BD720011E664 /* Car.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Car.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +120,10 @@
 		4FC35C9A19D3BCF00011E664 /* CarValet */ = {
 			isa = PBXGroup;
 			children = (
+				4FC35CCC19D3BD720011E664 /* Car.h */,
+				4FC35CCD19D3BD720011E664 /* Car.m */,
+				4F64755519E788F30061F87F /* HybridCar.h */,
+				4F64755619E788F30061F87F /* HybridCar.m */,
 				4FC35CA319D3BCF00011E664 /* AppDelegate.h */,
 				4FC35CA419D3BCF00011E664 /* AppDelegate.m */,
 				4FC35CA619D3BCF00011E664 /* Main_iPhone.storyboard */,
@@ -255,7 +265,9 @@
 			files = (
 				4FC35CAE19D3BCF00011E664 /* ViewController.m in Sources */,
 				4FC35CA519D3BCF00011E664 /* AppDelegate.m in Sources */,
+				4FC35CCE19D3BD720011E664 /* Car.m in Sources */,
 				4FC35CA119D3BCF00011E664 /* main.m in Sources */,
+				4F64755719E788F30061F87F /* HybridCar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,6 +482,7 @@
 				4FC35CC819D3BCF10011E664 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4FC35CC919D3BCF10011E664 /* Build configuration list for PBXNativeTarget "CarValetTests" */ = {
 			isa = XCConfigurationList;
@@ -478,6 +491,7 @@
 				4FC35CCB19D3BCF10011E664 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
