@@ -12,6 +12,14 @@
 @interface HybridCar : Car
 
 @property (nonatomic) float milesUntilEmpty;
+@property (nonatomic) float milesPerGallon;
 
+-(float)milesUntilEmpty;
+
+-(id)initWithMake:(NSString *)make
+            model:(NSString *)model
+             year:(int)year
+       fuelAmount:(float)fuelAmount
+   milesPerGallon:(float)milesPerGallon;
 
 @end

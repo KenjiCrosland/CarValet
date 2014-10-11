@@ -15,13 +15,12 @@
 //@property (nonatomic) float fuelAmount;
 @property (getter = isShowingLiters) BOOL showLiters;
 @property (nonatomic, setter = setTheFuelAmountTo:) float fuelAmount;
-@property (nonatomic) float milesPerGallon;
+
 
 -(id)initWithMake:(NSString *)make
             model:(NSString *)model
              year:(int)year
-       fuelAmount:(float)fuelAmount
-   milesPerGallon:(float)milesPerGallon;
+       fuelAmount:(float)fuelAmount;
 
 -(void)printCarInfo;
 

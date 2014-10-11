@@ -12,17 +12,16 @@
 
 
 -(id)init {
-    return [self initWithMake:nil model:nil year:1900 fuelAmount:0.0f milesPerGallon:0.0f];
+    return [self initWithMake:nil model:nil year:1900 fuelAmount:0.0f];
 }
 
--(id)initWithMake:(NSString *)make model:(NSString *)model year:(int)year fuelAmount:(float)fuelAmount milesPerGallon:(float)milesPerGallon{
+-(id)initWithMake:(NSString *)make model:(NSString *)model year:(int)year fuelAmount:(float)fuelAmount{
     self = [super init];
     if (self != nil) {
         _make = [make copy];
         _model = [model copy];
         _year = year;
         _fuelAmount = fuelAmount;
-        _milesPerGallon = milesPerGallon;
     }
     return self;
 }
