@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "Car.h"
 #import "HybridCar.h"
+#import "ElectricCar.h"
 
 @interface ViewController ()
 
@@ -30,9 +31,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    HybridCar *otherCar = [[HybridCar alloc]initWithMake:@"Toyota" model:@"Prius" year:2010 fuelAmount:10.0f milesPerGallon:42.0f];
-    [otherCar printCarInfo];
-    [otherCar shoutMake];
+    ElectricCar *otherCar = [[ElectricCar alloc]initWithMake:@"Tesla" model:@"D Class" year:2015 kilowattHours:15.0 milesPerKilowattHour:50.0];
     [otherCar printCarInfo];
 }
 

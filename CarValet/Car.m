@@ -7,6 +7,7 @@
 //
 
 #import "Car.h"
+#import "ElectricCar.h"
 
 @implementation Car
 
@@ -31,15 +32,27 @@
         NSLog(@"Car Make: %@", self.make);
         NSLog(@"Car Model: %@", self.model);
         NSLog(@"Car Year: %d", self.year);
+        if([self isMemberOfClass:[Car class]])
+        {
         if (self.isShowingLiters) {
             NSLog(@"Number of Liters in Tank: %0.2f", self.fuelAmount);
         }
         else {
         NSLog(@"Number of Gallons in Tank: %0.2f", self.fuelAmount);
         }
+        }
     }
     else {
+        if (!self.model && self.make) {
+            NSLog(@"Car undefined: no model specified");
+        }
+        else if (self.model && !self.make)
+        {
+            NSLog(@"Car undefined: no make specified");
+        }
+        else{
         NSLog(@"Car undefined: no make or model specified");
+        }
     }
     
     /*if (!_make)return;

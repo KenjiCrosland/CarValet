@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4F64755719E788F30061F87F /* HybridCar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F64755619E788F30061F87F /* HybridCar.m */; };
+		4F64755A19E9BD850061F87F /* ElectricCar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F64755919E9BD850061F87F /* ElectricCar.m */; };
 		4FC35C9519D3BCF00011E664 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FC35C9419D3BCF00011E664 /* Foundation.framework */; };
 		4FC35C9719D3BCF00011E664 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FC35C9619D3BCF00011E664 /* CoreGraphics.framework */; };
 		4FC35C9919D3BCF00011E664 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FC35C9819D3BCF00011E664 /* UIKit.framework */; };
@@ -39,6 +40,8 @@
 /* Begin PBXFileReference section */
 		4F64755519E788F30061F87F /* HybridCar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HybridCar.h; sourceTree = "<group>"; };
 		4F64755619E788F30061F87F /* HybridCar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HybridCar.m; sourceTree = "<group>"; };
+		4F64755819E9BD850061F87F /* ElectricCar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElectricCar.h; sourceTree = "<group>"; };
+		4F64755919E9BD850061F87F /* ElectricCar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElectricCar.m; sourceTree = "<group>"; };
 		4FC35C9119D3BCF00011E664 /* CarValet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarValet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FC35C9419D3BCF00011E664 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4FC35C9619D3BCF00011E664 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -122,6 +125,8 @@
 			children = (
 				4FC35CCC19D3BD720011E664 /* Car.h */,
 				4FC35CCD19D3BD720011E664 /* Car.m */,
+				4F64755819E9BD850061F87F /* ElectricCar.h */,
+				4F64755919E9BD850061F87F /* ElectricCar.m */,
 				4F64755519E788F30061F87F /* HybridCar.h */,
 				4F64755619E788F30061F87F /* HybridCar.m */,
 				4FC35CA319D3BCF00011E664 /* AppDelegate.h */,
@@ -266,6 +271,7 @@
 				4FC35CAE19D3BCF00011E664 /* ViewController.m in Sources */,
 				4FC35CA519D3BCF00011E664 /* AppDelegate.m in Sources */,
 				4FC35CCE19D3BD720011E664 /* Car.m in Sources */,
+				4F64755A19E9BD850061F87F /* ElectricCar.m in Sources */,
 				4FC35CA119D3BCF00011E664 /* main.m in Sources */,
 				4F64755719E788F30061F87F /* HybridCar.m in Sources */,
 			);
