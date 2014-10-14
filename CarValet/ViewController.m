@@ -15,12 +15,20 @@
 
 @end
 
-@implementation ViewController
+@implementation ViewController {
+    NSMutableArray *arrayOfCars;
+    NSInteger displayedCarIndex;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    arrayOfCars = [[NSMutableArray alloc] init];
+    [self newCar:nil];
+    displayedCarIndex = 0;
 }
 
 - (void)didReceiveMemoryWarning
@@ -35,4 +43,12 @@
     [otherCar printCarInfo];
 }
 
+- (IBAction)newCar:(id)sender {
+    Car *newCar = [[Car alloc]init];
+    [arrayOfCars addObject:newCar];
+    
+    NSString *totalCarText;
+    totalCarText = [NSString stringWithFormat:@"Total Cars: %lu", (unsigned long)[arrayOfCars count]];
+    self.totalCarsLabel.text = totalCarText;
+}
 @end
