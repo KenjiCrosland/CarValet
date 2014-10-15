@@ -15,6 +15,7 @@
 //@property (nonatomic) float fuelAmount;
 @property (getter = isShowingLiters) BOOL showLiters;
 @property (nonatomic, setter = setTheFuelAmountTo:) float fuelAmount;
+@property (readonly) NSString *carInfo;
 
 
 -(id)initWithMake:(NSString *)make

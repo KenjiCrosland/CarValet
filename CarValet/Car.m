@@ -27,6 +27,10 @@
     return self;
 }
 
+-(NSString *)carInfo {
+    return [NSString stringWithFormat:@"Car Info\n Make:%@\n Model %@\n Year: %d", self.make ? self.make:@"Unknown Make", self.model ? self.model:@"Unknown Model", self.year];
+}
+
 -(void)printCarInfo {
     if (self.make && self.model){
         NSLog(@"Car Make: %@", self.make);
