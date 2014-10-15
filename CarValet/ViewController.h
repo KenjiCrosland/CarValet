@@ -11,5 +11,7 @@
 @interface ViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UILabel *totalCarsLabel;
 - (IBAction)newCar:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *carInfoLabel;
+@property (weak, nonatomic) IBOutlet UILabel *carNumberLabel;
 
 @end

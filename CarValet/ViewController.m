@@ -51,4 +51,13 @@
     totalCarText = [NSString stringWithFormat:@"Total Cars: %lu", (unsigned long)[arrayOfCars count]];
     self.totalCarsLabel.text = totalCarText;
 }
+-(void)displayCurrentCarInfo {
+    Car *currentCar;
+    currentCar = [arrayOfCars objectAtIndex:displayedCarIndex];
+    self.carInfoLabel.text = currentCar.carInfo;
+    NSString *carIndexText;
+    carIndexText = [NSString stringWithFormat:@"Car Number: %ld",displayedCarIndex +1];
+    self.carNumberLabel.text = carIndexText;
+    
+}
 @end
