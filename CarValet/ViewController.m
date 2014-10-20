@@ -29,6 +29,7 @@
     arrayOfCars = [[NSMutableArray alloc] init];
     [self newCar:nil];
     displayedCarIndex = 0;
+    [self displayCurrentCarInfo];
 }
 
 - (void)didReceiveMemoryWarning
@@ -41,6 +42,21 @@
     
     ElectricCar *otherCar = [[ElectricCar alloc]initWithMake:@"Tesla" model:@"D Class" year:2015 kilowattHours:15.0 milesPerKilowattHour:50.0];
     [otherCar printCarInfo];
+}
+
+-(void)changeDisplayedCar:(NSInteger)newIndex
+{
+    if (newIndex < 0) {
+        newIndex = 0;
+    }
+    else if (newIndex >= [arrayOfCars count]){
+        newIndex = [arrayOfCars count] -1;
+    }
+    
+    if (displayedCarIndex != newIndex) {
+        displayedCarIndex = newIndex;
+        [self displayCurrentCarInfo];
+    }
 }
 
 - (IBAction)newCar:(id)sender {
@@ -59,5 +75,12 @@
     carIndexText = [NSString stringWithFormat:@"Car Number: %ld",displayedCarIndex +1];
     self.carNumberLabel.text = carIndexText;
     
+}
+- (IBAction)nextCar:(id)sender {
+    [self changeDisplayedCar:displayedCarIndex + 1];
+}
+
+- (IBAction)previousCar:(id)sender {
+    [self changeDisplayedCar:displayedCarIndex - 1];
 }
 @end

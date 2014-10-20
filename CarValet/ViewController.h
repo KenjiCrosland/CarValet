@@ -13,5 +13,7 @@
 - (IBAction)newCar:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *carInfoLabel;
 @property (weak, nonatomic) IBOutlet UILabel *carNumberLabel;
+- (IBAction)nextCar:(id)sender;
+- (IBAction)previousCar:(id)sender;
 
 @end
