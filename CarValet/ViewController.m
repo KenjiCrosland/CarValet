@@ -62,18 +62,20 @@
 - (IBAction)newCar:(id)sender {
     Car *newCar = [[Car alloc]init];
     [arrayOfCars addObject:newCar];
-    
-    NSString *totalCarText;
-    totalCarText = [NSString stringWithFormat:@"Total Cars: %lu", (unsigned long)[arrayOfCars count]];
-    self.totalCarsLabel.text = totalCarText;
+    [self updateLabel:self.totalCarsLabel withBaseString:@"Total Cars:" count:[arrayOfCars count]];
+}
+-(void)updateLabel:(UILabel*)theLabel
+    withBaseString:(NSString*)baseString
+             count:(NSInteger)theCount{
+    NSString *newText;
+    newText = [NSString stringWithFormat:@"%@ %ld", baseString, (long)theCount];
+    theLabel.text = newText;
 }
 -(void)displayCurrentCarInfo {
     Car *currentCar;
     currentCar = [arrayOfCars objectAtIndex:displayedCarIndex];
     self.carInfoLabel.text = currentCar.carInfo;
-    NSString *carIndexText;
-    carIndexText = [NSString stringWithFormat:@"Car Number: %ld",displayedCarIndex +1];
-    self.carNumberLabel.text = carIndexText;
+    [self updateLabel:self.carNumberLabel withBaseString:@"Car Number:" count:displayedCarIndex + 1];
     
 }
 - (IBAction)nextCar:(id)sender {
