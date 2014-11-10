@@ -44,6 +44,12 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Car Info Goes Here" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="ZcI-Uo-8Z4">
+                                        <rect key="frame" x="0.0" y="1" width="280" height="291"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F9h-jI-EVw">
                                         <rect key="frame" x="129" y="308" width="30" height="30"/>
                                         <state key="normal" title="Edit">
@@ -53,12 +59,6 @@
                                             <segue destination="2pp-v1-Lfu" kind="push" identifier="EditSegue" id="zbI-Di-Uyh"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Car Info Goes Here" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZcI-Uo-8Z4">
-                                        <rect key="frame" x="0.0" y="1" width="280" height="291"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -84,10 +84,25 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="CarValet" id="qfn-7S-Z1p"/>
+                    <navigationItem key="navigationItem" title="CarValet" id="qfn-7S-Z1p">
+                        <barButtonItem key="rightBarButtonItem" style="done" id="hUx-xI-TDX">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="BxL-eF-Nna">
+                                <rect key="frame" x="233" y="7" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="rbG-Ny-EmQ" kind="push" id="T1B-CY-6bP"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="carInfoLabel" destination="ZcI-Uo-8Z4" id="QnD-9M-8du"/>
                         <outlet property="carNumberLabel" destination="TE8-lB-Bbo" id="P1D-lW-GDw"/>
+                        <outlet property="nextButton" destination="aPH-Fz-g2i" id="6HB-OO-j2u"/>
+                        <outlet property="previousButton" destination="bFF-eg-GJz" id="hhw-oA-xuO"/>
                         <outlet property="totalCarsLabel" destination="61W-gO-5oN" id="Ufj-po-yI5"/>
                     </connections>
                 </viewController>
@@ -98,6 +113,33 @@
                 </view>
             </objects>
             <point key="canvasLocation" x="713" y="128"/>
+        </scene>
+        <!--About-->
+        <scene sceneID="fS2-zH-JGy">
+            <objects>
+                <viewController id="rbG-Ny-EmQ" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nUU-Jg-ODZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="O6g-SW-31x"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jUw-oZ-rjg">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="It Rawks" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cCO-kU-8NB">
+                                <rect key="frame" x="123" y="273" width="74" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="About" id="RcZ-7b-hRJ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ath-Qo-BX3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1201" y="-245"/>
         </scene>
         <!--Edit-->
         <scene sceneID="REc-Ho-IcO">
@@ -161,10 +203,37 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aND-EA-DPK">
+                                <rect key="frame" x="143" y="371" width="34" height="30"/>
+                                <state key="normal" title="Save">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="saveCar:" destination="2pp-v1-Lfu" eventType="touchUpInside" id="DYW-Bg-0zG"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Edit" id="M0Y-Ym-WgE"/>
+                    <navigationItem key="navigationItem" title="Edit" id="M0Y-Ym-WgE">
+                        <barButtonItem key="leftBarButtonItem" style="done" id="NuM-RR-eQG">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jnH-5f-byV">
+                                <rect key="frame" x="-23" y="-15" width="71" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="An0-Xk-Jsy" kind="unwind" unwindAction="cancelEditing:" id="1A0-7Y-dir"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="mkd-61-wSV">
+                            <connections>
+                                <segue destination="An0-Xk-Jsy" kind="unwind" identifier="EditDoneSegue" unwindAction="editingDone:" id="Osz-wl-3pU"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="carNumberLabel" destination="I7s-b1-rY8" id="exj-uJ-qJ1"/>
                         <outlet property="fuelField" destination="G4g-KR-6Gs" id="mf4-Pb-A1K"/>
@@ -174,8 +243,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w2c-te-dCN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="An0-Xk-Jsy" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1131" y="128"/>
+            <point key="canvasLocation" x="1200" y="377"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hNe-Ua-X0K">

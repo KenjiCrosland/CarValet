@@ -15,5 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *carNumberLabel;
 - (IBAction)nextCar:(id)sender;
 - (IBAction)previousCar:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *nextButton;
+@property (weak, nonatomic) IBOutlet UIButton *previousButton;
 
 @end

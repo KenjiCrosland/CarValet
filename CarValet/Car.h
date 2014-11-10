@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface Car : NSObject
-@property (nonatomic) int year;
+@property (nonatomic) NSInteger year;
 @property (nonatomic) NSString *make;
 @property (nonatomic) NSString *model;
 //@property (nonatomic) float fuelAmount;
@@ -20,7 +20,7 @@
 
 -(id)initWithMake:(NSString *)make
             model:(NSString *)model
-             year:(int)year
+             year:(NSInteger)year
        fuelAmount:(float)fuelAmount;
 
 -(void)printCarInfo;

@@ -16,7 +16,7 @@
     return [self initWithMake:nil model:nil year:1900 fuelAmount:0.0f];
 }
 
--(id)initWithMake:(NSString *)make model:(NSString *)model year:(int)year fuelAmount:(float)fuelAmount{
+-(id)initWithMake:(NSString *)make model:(NSString *)model year:(NSInteger)year fuelAmount:(float)fuelAmount{
     self = [super init];
     if (self != nil) {
         _make = [make copy];
@@ -28,14 +28,14 @@
 }
 
 -(NSString *)carInfo {
-    return [NSString stringWithFormat:@"Car Info\n Make:%@\n Model %@\n Year: %d", self.make ? self.make:@"Unknown Make", self.model ? self.model:@"Unknown Model", self.year];
+    return [NSString stringWithFormat:@"Car Info\n Make:%@\n Model %@\n Year: %ld", self.make ? self.make:@"Unknown Make", self.model ? self.model:@"Unknown Model", (long)self.year];
 }
 
 -(void)printCarInfo {
     if (self.make && self.model){
         NSLog(@"Car Make: %@", self.make);
         NSLog(@"Car Model: %@", self.model);
-        NSLog(@"Car Year: %d", self.year);
+        NSLog(@"Car Year: %ld", (long)self.year);
         if([self isMemberOfClass:[Car class]])
         {
         if (self.isShowingLiters) {

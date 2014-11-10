@@ -39,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4F5C5A6D1A0E8D88005E50A8 /* CarEditViewControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarEditViewControllerProtocol.h; sourceTree = "<group>"; };
 		4F64755519E788F30061F87F /* HybridCar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HybridCar.h; sourceTree = "<group>"; };
 		4F64755619E788F30061F87F /* HybridCar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HybridCar.m; sourceTree = "<group>"; };
 		4F64755819E9BD850061F87F /* ElectricCar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElectricCar.h; sourceTree = "<group>"; };
@@ -138,6 +139,7 @@
 				4FC35CA919D3BCF00011E664 /* Main_iPad.storyboard */,
 				4FC35CAC19D3BCF00011E664 /* ViewController.h */,
 				4FC35CAD19D3BCF00011E664 /* ViewController.m */,
+				4F5C5A6D1A0E8D88005E50A8 /* CarEditViewControllerProtocol.h */,
 				C99CB49419F9CDAE004FC61D /* CarEditViewController.h */,
 				C99CB49519F9CDAE004FC61D /* CarEditViewController.m */,
 				4FC35CAF19D3BCF00011E664 /* Images.xcassets */,

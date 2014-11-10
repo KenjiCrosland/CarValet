@@ -7,17 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CarEditViewControllerProtocol.h"
 
 @class Car;
 
 @interface CarEditViewController : UIViewController
-@property (nonatomic) NSInteger carNumber;
+@property (nonatomic) int carNumber;
 @property (strong, nonatomic) Car *currentCar;
+@property (nonatomic) BOOL carSaved;
 
 @property (weak, nonatomic) IBOutlet UILabel *carNumberLabel;
 @property (weak, nonatomic) IBOutlet UITextField *modelField;
 @property (weak, nonatomic) IBOutlet UITextField *makeField;
 @property (weak, nonatomic) IBOutlet UITextField *yearField;
 @property (weak, nonatomic) IBOutlet UITextField *fuelField;
+- (IBAction)saveCar:(id)sender;
 
 @end

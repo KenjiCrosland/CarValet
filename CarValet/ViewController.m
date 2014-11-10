@@ -11,6 +11,7 @@
 #import "HybridCar.h"
 #import "ElectricCar.h"
 #import "CarEditViewController.h"
+#import "AboutViewController.h"
 
 
 @interface ViewController ()
@@ -19,7 +20,7 @@
 
 @implementation ViewController {
     NSMutableArray *arrayOfCars;
-    NSInteger displayedCarIndex;
+    int displayedCarIndex;
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -31,6 +32,7 @@
         nextController.carNumber = displayedCarIndex + 1;
         Car *currentCar = arrayOfCars[displayedCarIndex];
         nextController.currentCar = currentCar;
+        
     }
 }
 
@@ -43,6 +45,8 @@
     arrayOfCars = [[NSMutableArray alloc] init];
     [self newCar:nil];
     displayedCarIndex = 0;
+    self.nextButton.enabled = NO;
+    self.previousButton.enabled = NO;
     [self displayCurrentCarInfo];
 }
 
@@ -58,13 +62,13 @@
     [otherCar printCarInfo];
 }
 
--(void)changeDisplayedCar:(NSInteger)newIndex
+-(void)changeDisplayedCar:(int)newIndex
 {
     if (newIndex < 0) {
         newIndex = 0;
     }
     else if (newIndex >= [arrayOfCars count]){
-        newIndex = [arrayOfCars count] -1;
+        newIndex = (int)[arrayOfCars count] - 1;
     }
     
     if (displayedCarIndex != newIndex) {
@@ -73,10 +77,25 @@
     }
 }
 
+-(Car*)carToEdit{
+    return arrayOfCars[displayedCarIndex];
+}
+-(NSInteger)carNumber {
+    return displayedCarIndex + 1;
+}
+-(void)editedCarUpdated {
+    [self displayCurrentCarInfo];
+    NSLog(@"\neditedCarUpdated called!\n");
+}
+
 - (IBAction)newCar:(id)sender {
     Car *newCar = [[Car alloc]init];
     [arrayOfCars addObject:newCar];
     [self updateLabel:self.totalCarsLabel withBaseString:@"Total Cars:" count:[arrayOfCars count]];
+    if (self.nextButton.enabled == NO && self.previousButton.enabled == NO && [arrayOfCars count] >= 1 ) {
+        self.nextButton.enabled = YES;
+        self.previousButton.enabled = YES;
+    }
 }
 -(void)updateLabel:(UILabel*)theLabel
     withBaseString:(NSString*)baseString
@@ -98,5 +117,12 @@
 
 - (IBAction)previousCar:(id)sender {
     [self changeDisplayedCar:displayedCarIndex - 1];
+}
+-(IBAction)editingDone:(UIStoryboardSegue *)segue {
+    [self displayCurrentCarInfo];
+}
+-(IBAction)cancelEditing:(UIStoryboardSegue*)segue
+{
+    [self displayCurrentCarInfo];
 }
 @end
