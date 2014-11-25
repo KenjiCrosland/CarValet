@@ -2,9 +2,6 @@
 //  AppDelegate.m
 //  CarValet
 //
-//  Created by Kenji Crosland on 9/24/14.
-//  Copyright (c) 2014 Kenji Crosland. All rights reserved.
-//
 
 #import "AppDelegate.h"
 

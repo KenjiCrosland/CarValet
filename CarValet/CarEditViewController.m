@@ -1,66 +1,125 @@
-//
 //  CarEditViewController.m
 //  CarValet
-//
-//  Created by Kenji Crosland on 10/23/14.
-//  Copyright (c) 2014 Kenji Crosland. All rights reserved.
-//
 
 #import "CarEditViewController.h"
+
 #import "Car.h"
-
-@interface CarEditViewController ()
-
-@end
 
 @implementation CarEditViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    NSString *carNumberText;
-    carNumberText = [NSString stringWithFormat:@"Car Number: %lu", (long)self.carNumber];
-    self.carNumberLabel.text = carNumberText;
-    self.modelField.text = self.currentCar.model;
-    self.makeField.text = self.currentCar.make;
-    self.yearField.text = [NSString stringWithFormat:@"%ld", (long)self.currentCar.year];
-    self.fuelField.text = [NSString stringWithFormat:@"%0.2f", self.currentCar.fuelAmount];
-    
-    // Do any additional setup after loading the view.
-}
 
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-}
+#pragma mark - View Lifecycle
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"EditDoneSegue"] && self.carSaved == YES) {
+- (void)prepareForSegue:(UIStoryboardSegue *)segue
+                 sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"EditDoneSegue"]) {
         self.currentCar.make = self.makeField.text;
         self.currentCar.model = self.modelField.text;
-        self.currentCar.year = [self.yearField.text intValue];
-        self.currentCar.fuelAmount = [self.fuelField.text floatValue];
+        self.currentCar.year = [self.yearField.text integerValue];
+
+        NSNumberFormatter *readFuel = [NSNumberFormatter new];
+        readFuel.locale = [NSLocale currentLocale];
+        [readFuel setNumberStyle:NSNumberFormatterDecimalStyle];
+        
+        NSNumber *fuelNum = [readFuel numberFromString:self.fuelField.text];
+        self.currentCar.fuelAmount = [fuelNum floatValue];
     }
 }
 
-- (void)didReceiveMemoryWarning {
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    self.title = NSLocalizedStringWithDefaultValue(
+                    @"EditViewScreenTitle",
+                    nil,
+                    [NSBundle mainBundle],
+                    @"Edit Car",
+                    @"Title for the Edit car screen");
+
+    NSString *labelFormat = @"%@:";
+    NSString *local;
+    
+    local = NSLocalizedStringWithDefaultValue(
+                @"CarMakeFieldLabel",
+                nil,
+                [NSBundle mainBundle],
+                @"Make",
+                @"Label for the line to enter or edit the Make of a car");
+    self.carMakeFieldLabel.text = [NSString
+                                   stringWithFormat:labelFormat, local];
+    
+    local = NSLocalizedStringWithDefaultValue(
+                @"CarModelFieldLabel",
+                nil,
+                [NSBundle mainBundle],
+                @"Model",
+                @"Label for the line to enter or edit the Model of a car");
+    self.carModelFieldLabel.text = [NSString
+                                    stringWithFormat:labelFormat, local];
+    
+    local = NSLocalizedStringWithDefaultValue(
+                @"CarYearFieldLabel",
+                nil,
+                [NSBundle mainBundle],
+                @"Year",
+                @"Label for the line to enter or edit the Year of a car");
+    self.carYearFieldLabel.text = [NSString
+                                   stringWithFormat:labelFormat, local];
+    
+    local = NSLocalizedStringWithDefaultValue(
+                @"CarFuelFieldLabel",
+                nil,
+                [NSBundle mainBundle],
+                @"Fuel",
+                @"Label for the line to enter or edit the Fuel in a car");
+    self.carFuelFieldLabel.text = [NSString
+                                   stringWithFormat:labelFormat, local];
+
+    NSString *carNumberText;
+    carNumberText = [NSString localizedStringWithFormat:@"%@: %d",
+                     NSLocalizedString(
+                        @"CarNumberLabel",
+                        @"Label for the index number of the current car"),
+                     [self.delegate carNumber]];
+    self.carNumberLabel.text = carNumberText;
+    
+    self.currentCar = [self.delegate carToEdit];
+    self.makeField.text = self.currentCar.make;
+    self.modelField.text = self.currentCar.model;
+    self.yearField.text = [NSString stringWithFormat:@"%d",
+                           self.currentCar.year];
+    self.fuelField.text = [NSString localizedStringWithFormat:@"%0.2f",
+                           self.currentCar.fuelAmount];
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    self.currentCar.make = self.makeField.text;
+    self.currentCar.model = self.modelField.text;
+    self.currentCar.year = [self.yearField.text integerValue];
+
+    NSNumberFormatter *readFuel = [NSNumberFormatter new];
+    readFuel.locale = [NSLocale currentLocale];
+    [readFuel setNumberStyle:NSNumberFormatterDecimalStyle];
+    
+    NSNumber *fuelNum = [readFuel numberFromString:self.fuelField.text];
+    self.currentCar.fuelAmount = [fuelNum floatValue];
+    
+    [self.delegate editedCarUpdated];
+}
+
+
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
-- (IBAction)saveCar:(id)sender {
-    self.currentCar.make = self.makeField.text;
-    self.currentCar.model = self.modelField.text;
-    self.currentCar.year = [self.yearField.text intValue];
-    self.currentCar.fuelAmount = [self.fuelField.text floatValue];
-    self.carSaved = YES;
-}
+
 @end

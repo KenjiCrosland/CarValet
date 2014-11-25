@@ -2,8 +2,8 @@
 //  main.m
 //  CarValet
 //
-//  Created by Kenji Crosland on 9/24/14.
-//  Copyright (c) 2014 Kenji Crosland. All rights reserved.
+//  Created by Maurice Sharp on 9/22/13.
+//  Copyright (c) 2013 Learning iOS Development. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

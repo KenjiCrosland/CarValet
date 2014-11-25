@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0510"
+   LastUpgradeVersion = "0610"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4FC35C9019D3BCF00011E664"
+               BlueprintIdentifier = "5DB0D6FC17EFB8B90063436F"
                BuildableName = "CarValet.app"
                BlueprintName = "CarValet"
                ReferencedContainer = "container:CarValet.xcodeproj">
@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4FC35CB419D3BCF00011E664"
+               BlueprintIdentifier = "5DB0D72017EFB8B90063436F"
                BuildableName = "CarValetTests.xctest"
                BlueprintName = "CarValetTests"
                ReferencedContainer = "container:CarValet.xcodeproj">
@@ -42,7 +42,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4FC35C9019D3BCF00011E664"
+            BlueprintIdentifier = "5DB0D6FC17EFB8B90063436F"
             BuildableName = "CarValet.app"
             BlueprintName = "CarValet"
             ReferencedContainer = "container:CarValet.xcodeproj">
@@ -61,12 +61,26 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4FC35C9019D3BCF00011E664"
+            BlueprintIdentifier = "5DB0D6FC17EFB8B90063436F"
             BuildableName = "CarValet.app"
             BlueprintName = "CarValet"
             ReferencedContainer = "container:CarValet.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "-NSDoubleLocalizedStrings YES"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-AppleLanguages &quot;(German)&quot;"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-AppleLanguages &quot;(Arabic)&quot;"
+            isEnabled = "NO">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -79,7 +93,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4FC35C9019D3BCF00011E664"
+            BlueprintIdentifier = "5DB0D6FC17EFB8B90063436F"
             BuildableName = "CarValet.app"
             BlueprintName = "CarValet"
             ReferencedContainer = "container:CarValet.xcodeproj">

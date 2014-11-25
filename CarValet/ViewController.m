@@ -2,73 +2,211 @@
 //  ViewController.m
 //  CarValet
 //
-//  Created by Kenji Crosland on 9/24/14.
-//  Copyright (c) 2014 Kenji Crosland. All rights reserved.
-//
 
 #import "ViewController.h"
+
 #import "Car.h"
-#import "HybridCar.h"
-#import "ElectricCar.h"
+
 #import "CarEditViewController.h"
-#import "AboutViewController.h"
 
-
-@interface ViewController ()
-
-@end
-
-@implementation ViewController {
+@implementation ViewController
+{
     NSMutableArray *arrayOfCars;
-    int displayedCarIndex;
+    NSInteger displayedCarIndex;
+    
+    NSArray *rootViewLandscapeConstraints;
+    NSArray *addCarViewLandscapeConstraints;
+    NSArray *separatorViewLandscapeConstraints;
+    
+    __weak IBOutlet UIView *addCarView;
+    __weak IBOutlet UIView *separatorView;
+    __weak IBOutlet UIView *viewCarView;
+    
+    BOOL isShowingPortrait;
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"EditSegue"])
-    {
+
+#pragma mark - View Lifecycle
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue
+                 sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"EditSegue"]) {
         CarEditViewController *nextController;
-        nextController = segue.destinationViewController;
-        nextController.carNumber = displayedCarIndex + 1;
-        Car *currentCar = arrayOfCars[displayedCarIndex];
-        nextController.currentCar = currentCar;
         
+        nextController = segue.destinationViewController;
+        nextController.delegate = self;
     }
 }
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-	// Do any additional setup after loading the view, typically from a nib.
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.title = NSLocalizedStringWithDefaultValue(
+                    @"AddViewScreenTitle",
+                    nil,
+                    [NSBundle mainBundle],
+                    @"CarValet",
+                    @"Title for the main app screen");
     
-    arrayOfCars = [[NSMutableArray alloc] init];
+    NSString *local;
+    
+    local = NSLocalizedStringWithDefaultValue (
+                   @"NewCarButton",
+                   nil,
+                   [NSBundle mainBundle],
+                   @"New Car",
+                   @"Button to create and add a new car");
+    [self.addCarButton setTitle:local forState:UIControlStateNormal];
+    
+    local = NSLocalizedStringWithDefaultValue(
+                  @"PreviousCarButton",
+                  nil,
+                  [NSBundle mainBundle],
+                  @"Previous",
+                  @"Title for button to go to the previous car");
+    [self.previousCarButton setTitle:local forState:UIControlStateNormal];
+    
+    local = NSLocalizedStringWithDefaultValue(
+                  @"NextCarButton",
+                  nil,
+                  [NSBundle mainBundle],
+                  @"Next",
+                  @"Title for button to go to the next car");
+    [self.nextCarButton setTitle:local forState:UIControlStateNormal];
+    
+    local = NSLocalizedStringWithDefaultValue(
+                  @"EditCarButton",
+                  nil,
+                  [NSBundle mainBundle],
+                  @"Edit",
+                  @"Title for button to go to edit the current car");
+    [self.editCarButton setTitle:local forState:UIControlStateNormal];
+    
+    UIInterfaceOrientation currOrientation = [[UIApplication sharedApplication]
+                                              statusBarOrientation];
+    isShowingPortrait = UIInterfaceOrientationIsPortrait(currOrientation);
+    
+    [self setupLandscapeConstraints];
+
+    arrayOfCars = [NSMutableArray new];
     [self newCar:nil];
+    
     displayedCarIndex = 0;
-    self.nextButton.enabled = NO;
-    self.previousButton.enabled = NO;
     [self displayCurrentCarInfo];
 }
+
+
+// BEGIN WORKAROUND for labels not correctly updating during rotation
+- (void)viewWillLayoutSubviews {
+    self.totalCarsLabel.preferredMaxLayoutWidth = 0.0;
+}
+
+
+- (void)viewDidLayoutSubviews {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.totalCarsLabel.preferredMaxLayoutWidth =
+        self.totalCarsLabel.frame.size.width;
+    });
+}
+// END WORKAROUND for labels not correctly updating during rotation
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    NSLocaleLanguageDirection langDirection;
+    langDirection = [NSLocale characterDirectionForLanguage:
+                     [NSLocale preferredLanguages][0]];
+    
+    if (langDirection == NSLocaleLanguageDirectionRightToLeft) {
+        self.carInfoLabel.textAlignment = NSTextAlignmentRight;
+        self.totalCarsLabel.textAlignment = NSTextAlignmentRight;
+    } else {
+        self.carInfoLabel.textAlignment = NSTextAlignmentLeft;
+        self.totalCarsLabel.textAlignment = NSTextAlignmentLeft;
+    }
+    
+    UIInterfaceOrientation currOrientation = [[UIApplication sharedApplication]
+                                              statusBarOrientation];
+    BOOL currIsPortrait = UIInterfaceOrientationIsPortrait(currOrientation);
+    
+    if ((isShowingPortrait && !currIsPortrait) ||
+        (!isShowingPortrait && currIsPortrait)) {
+        [self willAnimateRotationToInterfaceOrientation:currOrientation
+                                               duration:0.0f];
+    }
+}
+
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+
+
+
+#pragma mark - Rotation
+
+- (void)willAnimateRotationToInterfaceOrientation:
+(UIInterfaceOrientation)toInterfaceOrientation
+                                         duration:(NSTimeInterval)duration {
+    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation
+                                            duration:duration];
     
-    ElectricCar *otherCar = [[ElectricCar alloc]initWithMake:@"Tesla" model:@"D Class" year:2015 kilowattHours:15.0 milesPerKilowattHour:50.0];
-    [otherCar printCarInfo];
+    if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation)) {
+        [self.view removeConstraints:rootViewLandscapeConstraints];
+        [addCarView removeConstraints:addCarViewLandscapeConstraints];
+        [separatorView removeConstraints:separatorViewLandscapeConstraints];
+        
+        [self.view addConstraints:self.rootViewPortraitConstraints];
+        [addCarView addConstraints:self.addCarViewPortraitConstraints];
+        [separatorView addConstraints:self.separatorViewPortraitConstraints];
+        
+        isShowingPortrait = YES;
+        
+    } else {
+        
+        [self.view removeConstraints:self.rootViewPortraitConstraints];
+        [addCarView removeConstraints:self.addCarViewPortraitConstraints];
+        [separatorView removeConstraints:self.separatorViewPortraitConstraints];
+        
+        [self.view addConstraints:rootViewLandscapeConstraints];
+        [addCarView addConstraints:addCarViewLandscapeConstraints];
+        [separatorView addConstraints:separatorViewLandscapeConstraints];
+        
+        isShowingPortrait = NO;
+    }
 }
 
--(void)changeDisplayedCar:(int)newIndex
-{
+
+#pragma mark - Utility Methods
+
+- (void)displayCurrentCarInfo {
+    Car *currentCar;
+    currentCar = arrayOfCars[displayedCarIndex];
+    
+    self.carInfoLabel.text = currentCar.carInfo;
+    
+    [self updateLabel:self.carNumberLabel
+       withBaseString:NSLocalizedStringWithDefaultValue(
+                        @"CarNumberLabel",
+                        nil,
+                        [NSBundle mainBundle],
+                        @"Car Number",
+                        @"Label for the index number of the current car")
+
+                count:displayedCarIndex + 1];
+}
+
+
+- (void)changeDisplayedCar:(NSInteger)newIndex {
     if (newIndex < 0) {
         newIndex = 0;
-    }
-    else if (newIndex >= [arrayOfCars count]){
-        newIndex = (int)[arrayOfCars count] - 1;
+    } else if (newIndex >= [arrayOfCars count]) {
+        newIndex = [arrayOfCars count] - 1;
     }
     
     if (displayedCarIndex != newIndex) {
@@ -77,52 +215,144 @@
     }
 }
 
--(Car*)carToEdit{
+
+- (void)updateLabel:(UILabel*)theLabel
+     withBaseString:(NSString*)baseString
+              count:(NSInteger)theCount {
+    NSString *newText;
+    newText = [NSString localizedStringWithFormat:@"%@: %d",
+               baseString, theCount];
+    
+    theLabel.text = newText;
+}
+
+
+- (void)setupLandscapeConstraints {
+    NSDictionary *views;
+    id topGuide = self.topLayoutGuide;
+    id bottomGuide = self.bottomLayoutGuide;
+    views = NSDictionaryOfVariableBindings(topGuide,
+                                           bottomGuide,
+                                           addCarView,
+                                           separatorView,
+                                           viewCarView);
+    
+    NSMutableArray *tempRootViewConstraints = [NSMutableArray new];
+    
+    NSArray *generatedConstraints;
+    
+    generatedConstraints =
+        [NSLayoutConstraint
+         constraintsWithVisualFormat:@"H:[addCarView]-2-[separatorView]"
+         options:0
+         metrics:nil
+         views:views];
+    [tempRootViewConstraints addObjectsFromArray:generatedConstraints];
+    
+    generatedConstraints =
+        [NSLayoutConstraint
+         constraintsWithVisualFormat:@"V:[topGuide]-[separatorView]-[bottomGuide]"
+         options:0
+         metrics:nil
+         views:views];
+    [tempRootViewConstraints addObjectsFromArray:generatedConstraints];
+    
+    generatedConstraints =
+            [NSLayoutConstraint
+             constraintsWithVisualFormat:@"V:[topGuide]-[addCarView]-[bottomGuide]"
+             options:0
+             metrics:nil
+             views:views];
+    [tempRootViewConstraints addObjectsFromArray:generatedConstraints];
+    
+    generatedConstraints =
+            [NSLayoutConstraint
+             constraintsWithVisualFormat:@"V:[topGuide]-[viewCarView]"
+             options:0
+             metrics:nil
+             views:views];
+    [tempRootViewConstraints addObjectsFromArray:generatedConstraints];
+    
+    generatedConstraints =
+            [NSLayoutConstraint
+             constraintsWithVisualFormat:@"[separatorView]-40-[viewCarView]-|"
+             options:0
+             metrics:nil
+             views:views];
+    [tempRootViewConstraints addObjectsFromArray:generatedConstraints];
+    
+    rootViewLandscapeConstraints = [NSArray
+                                    arrayWithArray:tempRootViewConstraints];
+    
+    addCarViewLandscapeConstraints =
+            [NSLayoutConstraint
+             constraintsWithVisualFormat:@"H:[addCarView(132)]"
+             options:0
+             metrics:nil
+             views:views];
+    
+    separatorViewLandscapeConstraints =
+            [NSLayoutConstraint
+             constraintsWithVisualFormat:@"H:[separatorView(2)]"
+             options:0
+             metrics:nil
+             views:views];
+}
+
+
+
+#pragma mark - CarEditViewControllerProtocol Methods
+
+- (Car*)carToEdit {
     return arrayOfCars[displayedCarIndex];
 }
--(NSInteger)carNumber {
+
+- (NSInteger)carNumber {
     return displayedCarIndex + 1;
 }
--(void)editedCarUpdated {
+
+- (void)editedCarUpdated {
     [self displayCurrentCarInfo];
     NSLog(@"\neditedCarUpdated called!\n");
 }
 
-- (IBAction)newCar:(id)sender {
-    Car *newCar = [[Car alloc]init];
-    [arrayOfCars addObject:newCar];
-    [self updateLabel:self.totalCarsLabel withBaseString:@"Total Cars:" count:[arrayOfCars count]];
-    if (self.nextButton.enabled == NO && self.previousButton.enabled == NO && [arrayOfCars count] >= 1 ) {
-        self.nextButton.enabled = YES;
-        self.previousButton.enabled = YES;
-    }
-}
--(void)updateLabel:(UILabel*)theLabel
-    withBaseString:(NSString*)baseString
-             count:(NSInteger)theCount{
-    NSString *newText;
-    newText = [NSString stringWithFormat:@"%@ %ld", baseString, (long)theCount];
-    theLabel.text = newText;
-}
--(void)displayCurrentCarInfo {
-    Car *currentCar;
-    currentCar = [arrayOfCars objectAtIndex:displayedCarIndex];
-    self.carInfoLabel.text = currentCar.carInfo;
-    [self updateLabel:self.carNumberLabel withBaseString:@"Car Number:" count:displayedCarIndex + 1];
+#pragma mark - Actions
+
+- (IBAction)newCar:(id)sender
+{
+    Car *newCar = [Car new];
     
+    [arrayOfCars addObject:newCar];
+    
+    [self updateLabel:self.totalCarsLabel
+       withBaseString:NSLocalizedStringWithDefaultValue(
+                        @"TotalCarsLabel",
+                        nil,
+                        [NSBundle mainBundle],
+                        @"Total Cars",
+                        @"Label for the total number of cars")
+
+                count:[arrayOfCars count]];
 }
-- (IBAction)nextCar:(id)sender {
+
+
+- (IBAction)previousCar:(id)sender
+{
+    [self changeDisplayedCar:displayedCarIndex - 1];
+}
+
+
+- (IBAction)nextCar:(id)sender
+{
     [self changeDisplayedCar:displayedCarIndex + 1];
 }
 
-- (IBAction)previousCar:(id)sender {
-    [self changeDisplayedCar:displayedCarIndex - 1];
-}
--(IBAction)editingDone:(UIStoryboardSegue *)segue {
+
+// Unwind segue action
+- (IBAction)editingDone:(UIStoryboardSegue*)segue {
     [self displayCurrentCarInfo];
 }
--(IBAction)cancelEditing:(UIStoryboardSegue*)segue
-{
-    [self displayCurrentCarInfo];
-}
+
+
+
 @end

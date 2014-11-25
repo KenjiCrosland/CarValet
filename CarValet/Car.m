@@ -1,22 +1,98 @@
-//
 //  Car.m
 //  CarValet
-//
-//  Created by Kenji Crosland on 9/24/14.
-//  Copyright (c) 2014 Kenji Crosland. All rights reserved.
-//
 
 #import "Car.h"
-#import "ElectricCar.h"
 
 @implementation Car
 
+#pragma mark - Accessors
 
--(id)init {
-    return [self initWithMake:nil model:nil year:1900 fuelAmount:0.0f];
+- (NSString *)carInfo {
+    NSString *infoLabel = NSLocalizedStringWithDefaultValue(
+                            @"CarInfoLabel",
+                            nil,
+                            [NSBundle mainBundle],
+                            @"Car Info",
+                            @"Label for the information of one car");
+    
+    NSString *makeLabel = NSLocalizedStringWithDefaultValue(
+                            @"CarInfoMakeLabel",
+                            nil,
+                            [NSBundle mainBundle],
+                            @"Make",
+                            @"Make Label for the make of one car");
+    
+    NSString *modelLabel =  NSLocalizedStringWithDefaultValue(
+                            @"CarInfoModelLabel",
+                            nil,
+                            [NSBundle mainBundle],
+                            @"Model",
+                            @"Model label for the model of one car");
+    
+    NSString *yearLabel = NSLocalizedStringWithDefaultValue(
+                            @"CarInfoYearLabel",
+                            nil,
+                            [NSBundle mainBundle],
+                            @"Year",
+                            @"Year label for one car");
+    
+    NSString *unknownMake = NSLocalizedStringWithDefaultValue(
+                            @"UnknownMakePlaceholder",
+                            nil,
+                            [NSBundle mainBundle],
+                            @"Unknown Make",
+                            @"Placeholder string for an unknown car make");
+    
+    NSString *unknownModel = NSLocalizedStringWithDefaultValue(
+                            @"UnknownModelPlaceholder",
+                            nil,
+                            [NSBundle mainBundle],
+                            @"Unknown Model",
+                            @"Placeholder string for an unknown car model");
+    
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    [dateComponents setYear:self.year];
+    
+    NSDate *yearDate = [[NSCalendar currentCalendar]
+                        dateFromComponents:dateComponents];
+    
+    NSString *yearFormat = [NSDateFormatter
+                            dateFormatFromTemplate:@"YYYY"
+                            options: 0
+                            locale:[NSLocale currentLocale]];
+    NSDateFormatter *yearFormatter = [[NSDateFormatter alloc] init];
+    [yearFormatter setDateFormat:yearFormat];
+    
+    NSString *localYear = [yearFormatter stringFromDate:yearDate];
+    
+    return [NSString stringWithFormat:
+                            @"%@\n    %@: %@\n    %@: %@\n    %@: %@",
+                            infoLabel, makeLabel,
+                            self.make ? self.make : unknownMake,
+                            modelLabel,
+                            self.model ? self.model : unknownModel,
+                            yearLabel, localYear];
 }
 
--(id)initWithMake:(NSString *)make model:(NSString *)model year:(NSInteger)year fuelAmount:(float)fuelAmount{
+
+
+#pragma mark - Initialization
+
+- (id)init {
+    self = [super init];
+    if (self != nil) {
+        _year = 1900;
+        _fuelAmount = 0.0f;
+    }
+    return self;
+}
+
+
+- (id)initWithMake:(NSString *)make
+             model:(NSString *)model
+              year:(int)year
+        fuelAmount:(float)fuelAmount {
+    
     self = [super init];
     if (self != nil) {
         _make = [make copy];
@@ -24,58 +100,25 @@
         _year = year;
         _fuelAmount = fuelAmount;
     }
+    
     return self;
 }
 
--(NSString *)carInfo {
-    return [NSString stringWithFormat:@"Car Info\n Make:%@\n Model %@\n Year: %ld", self.make ? self.make:@"Unknown Make", self.model ? self.model:@"Unknown Model", (long)self.year];
-}
 
--(void)printCarInfo {
-    if (self.make && self.model){
+
+#pragma mark - Public Methods
+
+- (void)printCarInfo {
+    if (self.make && self.model) {
         NSLog(@"Car Make: %@", self.make);
         NSLog(@"Car Model: %@", self.model);
-        NSLog(@"Car Year: %ld", (long)self.year);
-        if([self isMemberOfClass:[Car class]])
-        {
-        if (self.isShowingLiters) {
-            NSLog(@"Number of Liters in Tank: %0.2f", self.fuelAmount);
-        }
-        else {
+        NSLog(@"Car Year: %d", self.year);
         NSLog(@"Number of Gallons in Tank: %0.2f", self.fuelAmount);
-        }
-        }
+    } else {
+        NSLog(@"Car undefined: no make or model specified.");
     }
-    else {
-        if (!self.model && self.make) {
-            NSLog(@"Car undefined: no model specified");
-        }
-        else if (self.model && !self.make)
-        {
-            NSLog(@"Car undefined: no make specified");
-        }
-        else{
-        NSLog(@"Car undefined: no make or model specified");
-        }
-    }
-    
-    /*if (!_make)return;
-    if (!_model)return;
-    
-    NSLog(@"Car Make: %@", _make);
-    NSLog(@"Car Model: %@", _model);
-    NSLog(@"Car Year: %d", _year);
-    NSLog(@"Number of Gallons in Tank: %0.2f", _fuelAmount);*/
 }
--(void)shoutMake{
-    self.make = [self.make uppercaseString];
-}
--(float)fuelAmount
-{
-    if (self.isShowingLiters) {
-        return (_fuelAmount * 3.7854);
-    }
-    return _fuelAmount;
-}
+
+
 
 @end
