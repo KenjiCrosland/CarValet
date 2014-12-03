@@ -42,7 +42,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationController.toolbarHidden = NO;
+
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
+    
     self.title = NSLocalizedStringWithDefaultValue(
                     @"AddViewScreenTitle",
                     nil,
@@ -60,28 +64,6 @@
                    @"Button to create and add a new car");
     [self.addCarButton setTitle:local forState:UIControlStateNormal];
     
-    local = NSLocalizedStringWithDefaultValue(
-                  @"PreviousCarButton",
-                  nil,
-                  [NSBundle mainBundle],
-                  @"Previous",
-                  @"Title for button to go to the previous car");
-    [self.previousCarButton setTitle:local forState:UIControlStateNormal];
-    
-    local = NSLocalizedStringWithDefaultValue(
-                  @"NextCarButton",
-                  nil,
-                  [NSBundle mainBundle],
-                  @"Next",
-                  @"Title for button to go to the next car");
-    [self.nextCarButton setTitle:local forState:UIControlStateNormal];
-    
-    local = NSLocalizedStringWithDefaultValue(
-                  @"EditCarButton",
-                  nil,
-                  [NSBundle mainBundle],
-                  @"Edit",
-                  @"Title for button to go to edit the current car");
     [self.editCarButton setTitle:local forState:UIControlStateNormal];
     
     UIInterfaceOrientation currOrientation = [[UIApplication sharedApplication]

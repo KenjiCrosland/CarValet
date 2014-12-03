@@ -6,7 +6,9 @@
 #import "Car.h"
 
 @implementation CarEditViewController
-
+{
+    CGFloat defaultScrollViewHeightConstraint;
+}
 
 #pragma mark - View Lifecycle
 
@@ -30,6 +32,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.navigationController.toolbarHidden = YES;
+
+    defaultScrollViewHeightConstraint =
+                self.scrollViewHeightConstraint.constant;
+    
+    self.formView.translatesAutoresizingMaskIntoConstraints = YES;
+    
+    [self.scrollView addSubview:self.formView];
+    
+    self.formView.frame = CGRectMake(0.0, 0.0,
+                                     self.scrollView.frame.size.width,
+                                     self.formView.frame.size.height);
+    
+    self.scrollView.contentSize = self.formView.bounds.size;
     
     self.title = NSLocalizedStringWithDefaultValue(
                     @"EditViewScreenTitle",
@@ -95,8 +112,33 @@
 }
 
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter]
+         addObserver:self
+         selector:@selector(keyboardDidShow:)
+         name:UIKeyboardDidShowNotification
+         object:nil];
+    [[NSNotificationCenter defaultCenter]
+         addObserver:self
+         selector:@selector(keyboardWillHide:)
+         name:UIKeyboardWillHideNotification
+         object:nil];
+}
+
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter]
+         removeObserver:self
+         name:UIKeyboardDidShowNotification
+         object:nil];
+    [[NSNotificationCenter defaultCenter]
+         removeObserver:self
+         name:UIKeyboardWillHideNotification
+         object:nil];
     
     self.currentCar.make = self.makeField.text;
     self.currentCar.model = self.modelField.text;
@@ -121,5 +163,31 @@
 
 
 
+#pragma mark - Keyboard Handling
+
+- (void)keyboardDidShow:(NSNotification *)notification {
+    NSDictionary *userInfo = [notification userInfo];
+    
+    NSValue* aValue = userInfo[UIKeyboardFrameEndUserInfoKey];
+    
+    CGRect keyboardRect = [aValue CGRectValue];
+    keyboardRect = [self.view convertRect:keyboardRect fromView:nil];
+    
+    CGRect intersect = CGRectIntersection(self.scrollView.frame, keyboardRect);
+    
+    self.scrollViewHeightConstraint.constant -= intersect.size.height;
+    [self.view updateConstraints];
+    
+    self.scrollView.contentSize = self.formView.frame.size;
+}
+
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    self.scrollViewHeightConstraint.constant =
+                defaultScrollViewHeightConstraint;
+    [self.view updateConstraints];
+    
+    self.scrollView.contentSize = self.formView.frame.size;
+}
 
 @end

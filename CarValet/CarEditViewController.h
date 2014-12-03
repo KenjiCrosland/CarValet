@@ -23,4 +23,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *carYearFieldLabel;
 @property (weak, nonatomic) IBOutlet UILabel *carFuelFieldLabel;
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint
+                                            *scrollViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet UIView *formView;
+
 @end
